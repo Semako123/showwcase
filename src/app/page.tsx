@@ -2,15 +2,13 @@
 import { Container } from "@/components/styles/Container.styles";
 import { StyledImage } from "@/components/styles/Image.styles";
 import { loginImg } from "@/assets";
-import LoginSection from "@/components/styles/LoginSection.style";
+import Login from "@/components/Login";
 
 const Home = () => {
 	return (
 		<Container>
-			<StyledImage src={loginImg} width={1/2} alt="login" unoptimized/>
-			<LoginSection>
-				
-			</LoginSection>
+			<StyledImage src={loginImg} width={1 / 2} alt="login" unoptimized />
+			<Login />
 		</Container>
 	);
 };
