@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/styles/Image.styles.js", "src/components/styles/Container.styles.js", "src/components/styles/Input.styles.js", "src/components/styles/Button.styles.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/styles/Image.styles.js", "src/components/styles/Container.styles.js", "src/components/styles/Input.styles.js", "src/components/styles/Button.styles.js", "src/components/styles/Typography.styles.js"],
   "exclude": ["node_modules"]
 }
