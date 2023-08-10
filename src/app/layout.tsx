@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import StyledComponentsRegistry from "./registry";
 
 export const metadata: Metadata = {
 	title: "Showwcase - Studentfolio",
@@ -12,7 +13,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
 		</html>
 	);
 }
