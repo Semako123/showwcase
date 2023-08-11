@@ -1,13 +1,13 @@
 export interface EduInfoType{
-    name: String,
-    country: String,
-    website: String,
-    startDate: String,
-    endDate: String,
-    degree: String,
-    field: String,
-    Grade: Number,
-    description:String
+    name: string,
+    country: string,
+    website: string,
+    startDate: string,
+    endDate: string,
+    degree: string,
+    field: string,
+    Grade: number,
+    description:string
 }
 
 export type EduInfoContextType = {
