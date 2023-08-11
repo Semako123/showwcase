@@ -17,10 +17,11 @@ const Login = () => {
 
 	return (
 		<LoginContainer>
-			<h2>Hi there! Welcome to your Education Showcase</h2>
-			<h5>Type your name and click &quot;Enter&quot; below to ger started</h5>
-			<StyledInput type="text" value={name} onChange={handleChange} />
-			<StyledButton onClick={handleSubmit}>Enter</StyledButton>
+			<h2>Hi there! Welcome to your <span>Education Showcase</span></h2>
+			<h4>Get Started</h4>
+			<p>Type your name and click &quot;Get Started&quot; below</p>
+			<StyledInput type="text" value={name} onChange={handleChange} placeholder="Username"/>
+			<StyledButton onClick={handleSubmit}>Get Started</StyledButton>
 		</LoginContainer>
 	);
 };
