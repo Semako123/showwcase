@@ -1,7 +1,9 @@
+"use client";
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./registry";
 import GlobalStyle from "@/components/styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
+import { EduContextProvider } from "@/context/userContext";
 import theme from "./theme";
 
 export const metadata: Metadata = {
@@ -18,8 +20,10 @@ export default function RootLayout({
 		<html lang="en">
 			<StyledComponentsRegistry>
 				<ThemeProvider theme={theme}>
-					<GlobalStyle />
-					{children}
+					<EduContextProvider>
+						<GlobalStyle />
+						{children}
+					</EduContextProvider>
 				</ThemeProvider>
 			</StyledComponentsRegistry>
 		</html>
