@@ -4,5 +4,5 @@ import Image from "next/image";
 
 export const StyledImage = styled(Image)`
 	${layout}
-	height:100%;
+	height:auto;
 `;
