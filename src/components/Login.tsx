@@ -12,7 +12,6 @@ const Login = () => {
 		updateName(e.target.value);
 	};
     const handleSubmit = () => {
-        console.log("hi")
 		router.push("/dashboard");
 	};
 
