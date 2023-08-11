@@ -18,6 +18,8 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
+			<head></head>
+			<body>
 			<StyledComponentsRegistry>
 				<ThemeProvider theme={theme}>
 					<EduContextProvider>
@@ -26,6 +28,7 @@ export default function RootLayout({
 					</EduContextProvider>
 				</ThemeProvider>
 			</StyledComponentsRegistry>
+			</body>
 		</html>
 	);
 }
