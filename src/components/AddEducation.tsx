@@ -7,6 +7,7 @@ import { useState } from "react";
 import { EduInfoType } from "@/@types";
 import { useEduContext } from "@/context/userContext";
 import AutoComplete from "./AutoComplete";
+import { StyledModal } from "./styles/Container.styles";
 
 interface Props {
 	isOpen: boolean;
@@ -32,15 +33,20 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 	const { isLoading, error, data } = useQuery({
 		queryKey: ["value", inputValues.name],
 		queryFn: () =>
-			fetch(
-				`http://universities.hipolabs.com/search?name=${inputValues.name}`
-			).then((res) => res.json()),
+			inputValues.name
+				? fetch(
+						`http://universities.hipolabs.com/search?name=${inputValues.name}`
+				  ).then((res) => res.json())
+				: Promise.resolve([]),
 	});
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		setInputValues({ ...inputValues, [e.target.name]: e.target.value });
+		 // Special handling for the Grade input
+		 const parsedValue = e.target.name === "Grade" ? parseFloat(e.target.value) : e.target.value;
+		 //Update values based on name
+		setInputValues({ ...inputValues, [e.target.name]: parsedValue });
 	};
 
 	const handleSave = () => {
@@ -53,10 +59,10 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 		setInputValues(defaultInput);
 		setIsOpen(false);
 	};
-	
+
 	return (
-		<Modal isOpen={isOpen}>
-			<div>Add new Education to Showcase</div>
+		<StyledModal isOpen={isOpen}>
+			<h4>Add new Education to <span>Showcase</span></h4>
 			<div>
 				Name of Institution:
 				<StyledInput
@@ -65,7 +71,7 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 					onChange={handleChange}
 					name="name"
 				/>
-				{data && <AutoComplete data={data} setInputValues={setInputValues} />}
+				{data && <AutoComplete data={data} currentName={inputValues.name} setInputValues={setInputValues} />}
 			</div>
 			<div>
 				Country/Location:
@@ -144,7 +150,7 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 			</div>
 			<StyledButton onClick={handleSave}>Save</StyledButton>
 			<StyledButton onClick={handleCancel}>Cancel</StyledButton>
-		</Modal>
+		</StyledModal>
 	);
 };
 
