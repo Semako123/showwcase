@@ -58,3 +58,10 @@ export const InputField = styled.div`
 		width:100%;
 	}
 `
+
+export const ModalFooter = styled.div`
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-top:20px;
+`
