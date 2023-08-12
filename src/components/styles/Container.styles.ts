@@ -47,3 +47,14 @@ export const StyledModal = styled(Modal)`
 		color:${props => props.theme.color.primary}
 	}
 `
+
+export const InputField = styled.div`
+	p{
+		text-transform:uppercase;
+		color:${props => props.theme.color.darkGrey}
+	}
+
+	input, textarea{
+		width:100%;
+	}
+`
