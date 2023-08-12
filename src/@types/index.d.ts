@@ -1,3 +1,4 @@
+//Type declarations
 export interface EduInfoType{
     name: string,
     country: string,
