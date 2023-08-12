@@ -7,7 +7,7 @@ import AddEducation from "@/components/AddEducation";
 import StyledLayout from "@/components/styles/Layout.styles";
 import StyledSection from "@/components/styles/Section.style";
 import StyledHeader from "@/components/styles/Header.styles";
-
+import { EduCard } from "@/components/styles/EduInfo.styles";
 
 export default function DashboardLayout({
 	children,
@@ -33,7 +33,7 @@ export default function DashboardLayout({
 					</StyledButton>
 				</StyledHeader>
 				<AddEducation setIsOpen={setIsOpen} isOpen={isOpen} />
-				{children}
+				<EduCard>{children}</EduCard>
 			</StyledSection>
 		</StyledLayout>
 	);
