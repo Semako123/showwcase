@@ -7,6 +7,8 @@ import { EduContextProvider } from "@/context/userContext";
 import theme from "./theme";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Modal from "react-modal";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export default function RootLayout({
 	children,
@@ -27,6 +29,7 @@ export default function RootLayout({
 						<QueryClientProvider client={queryClient}>
 							<EduContextProvider>
 								<GlobalStyle />
+								<ToastContainer />
 								{children}
 							</EduContextProvider>
 						</QueryClientProvider>
