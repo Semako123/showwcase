@@ -6,7 +6,7 @@ import Login from "@/components/Login";
 
 const Home = () => {
 	return (
-		<Container>
+		<Container $full>
 			<StyledImage src={loginImg} width={1 / 2} alt="login" unoptimized />
 			<Login />
 		</Container>
