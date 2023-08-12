@@ -51,9 +51,9 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 		queryKey: ["value", inputValues.name],
 		queryFn: () =>
 			inputValues.name
-				? fetch(
-						`http://universities.hipolabs.com/search?name=${inputValues.name}`
-				  ).then((res) => res.json())
+				? fetch(`/api/search?name=${inputValues.name}`).then((res) =>
+						res.json()
+				  )
 				: Promise.resolve([]),
 	});
 
