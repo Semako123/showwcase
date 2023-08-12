@@ -1,6 +1,7 @@
+"use client";
 import { useEduContext } from "@/context/userContext";
-import Link from "next/link";
 import StyledAside from "./styles/Aside.style";
+import AsideLink from "./AsideLink";
 
 const Aside = () => {
 	const { name, eduInfo } = useEduContext()!;
@@ -8,9 +9,7 @@ const Aside = () => {
 		<StyledAside>
 			<h4>{name}</h4>
 			{eduInfo.map((info, index) => (
-				<div key={index}>
-					<Link href={`/dashboard/${index}`}>{info.name}</Link>
-				</div>
+				<AsideLink index={index} name={info.name} key={index} />
 			))}
 		</StyledAside>
 	);
