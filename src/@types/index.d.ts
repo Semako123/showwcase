@@ -14,6 +14,7 @@ export type EduInfoContextType = {
     name: string,
     updateName:(name:string) => void,
     eduInfo: EduInfoType[],
-    updateEduInfo : (EduInfo:EduInfoType) => void
+    updateEduInfo : (EduInfo:EduInfoType) => void,
+    deleteEduInfo: (index:number) => void
 } 
 
