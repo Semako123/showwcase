@@ -8,6 +8,7 @@ const StyledAside = styled.div`
     padding:40px;
     background-color:${props => props.theme.color.inactive};
     border-radius: 0 30px 30px 0;
+    overflow-y:auto;
 
     h4{
         font-size:40px;
