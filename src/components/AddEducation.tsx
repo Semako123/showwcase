@@ -1,13 +1,18 @@
-import Modal from "react-modal";
 import StyledButton from "./styles/Button.styles";
 import { Dispatch, SetStateAction } from "react";
-import { StyledInput } from "./styles/Input.styles";
+import { StyledInput, StyledTextArea } from "./styles/Input.styles";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { EduInfoType } from "@/@types";
 import { useEduContext } from "@/context/userContext";
 import AutoComplete from "./AutoComplete";
-import { StyledModal } from "./styles/Container.styles";
+import {
+	InputField,
+	ModalFooter,
+	StyledModal,
+} from "./styles/Container.styles";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
 	isOpen: boolean;
@@ -15,6 +20,7 @@ interface Props {
 }
 
 const AddEducation = ({ isOpen, setIsOpen }: Props) => {
+	//state declarations
 	const defaultInput: EduInfoType = {
 		name: "",
 		country: "",
@@ -29,8 +35,19 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 	const { updateEduInfo } = useEduContext()!;
 	const [inputValues, setInputValues] = useState<EduInfoType>(defaultInput);
 
+	//Validate and alert if error
+	const validate = (): boolean => {
+		for (const name in inputValues) {
+			if (!inputValues[name as keyof EduInfoType]) {
+				toast(`Invalid ${name} value`);
+				return false;
+			}
+		}
+		return true;
+	};
+
 	//Fetches data with name and as query key
-	const { isLoading, error, data } = useQuery({
+	const { error, data } = useQuery({
 		queryKey: ["value", inputValues.name],
 		queryFn: () =>
 			inputValues.name
@@ -40,19 +57,30 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 				: Promise.resolve([]),
 	});
 
+	//Error Handling
+	if (error) {
+		const errorMessage = (error as Error).message || "An error occurred"; // Use a default message if 'message' doesn't exist
+		toast(errorMessage); // Display the error message using your toast library
+	}
+
+	//Event Handlers
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		 // Special handling for the Grade input
-		 const parsedValue = e.target.name === "Grade" ? parseFloat(e.target.value) : e.target.value;
-		 //Update values based on name
-		setInputValues({ ...inputValues, [e.target.name]: parsedValue });
+		const target = e.target;
+		// Special handling for the Grade input
+		const parsedValue =
+			target.name === "Grade" ? parseFloat(target.value) : target.value;
+		//Update values based on name
+		setInputValues({ ...inputValues, [target.name]: parsedValue });
 	};
 
 	const handleSave = () => {
-		updateEduInfo(inputValues);
-		setInputValues(defaultInput);
-		setIsOpen(false);
+		if (validate()) {
+			updateEduInfo(inputValues);
+			setInputValues(defaultInput);
+			setIsOpen(false);
+		}
 	};
 
 	const handleCancel = () => {
@@ -62,74 +90,80 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 
 	return (
 		<StyledModal isOpen={isOpen}>
-			<h4>Add new Education to <span>Showcase</span></h4>
-			<div>
-				Name of Institution:
+			<h4>
+				Add new Education to <span>Showcase</span>
+			</h4>
+			<InputField>
+				<p>Name of Institution</p>
 				<StyledInput
 					type="text"
 					value={inputValues.name}
 					onChange={handleChange}
 					name="name"
 				/>
-				{data && <AutoComplete data={data} currentName={inputValues.name} setInputValues={setInputValues} />}
-			</div>
-			<div>
-				Country/Location:
+
+				{data && (
+					<AutoComplete
+						data={data}
+						currentName={inputValues.name}
+						setInputValues={setInputValues}
+					/>
+				)}
+			</InputField>
+			<InputField>
+				<p>Country/Location</p>
 				<StyledInput
 					type="text"
 					onChange={handleChange}
 					name="country"
 					value={inputValues.country}
 				/>
-			</div>
-			<div>
-				Website (URL):
+			</InputField>
+			<InputField>
+				<p>Website (URL)</p>
 				<StyledInput
 					type="text"
 					onChange={handleChange}
 					name="website"
 					value={inputValues.website}
 				/>
-			</div>
-			<div>
-				Degree:
+			</InputField>
+			<InputField>
+				<p>Degree</p>
 				<StyledInput
 					type="text"
 					onChange={handleChange}
 					name="degree"
 					value={inputValues.degree}
 				/>
-			</div>
-			<div>
-				Field/Area of Study:
+			</InputField>
+			<InputField>
+				<p>Field/Area of Study</p>
 				<StyledInput
 					type="text"
 					onChange={handleChange}
 					name="field"
 					value={inputValues.field}
 				/>
-			</div>
-			<div>
-				Grade:
+			</InputField>
+			<InputField>
+				<p>Grade</p>
 				<StyledInput
 					type="number"
 					onChange={handleChange}
 					name="Grade"
 					value={inputValues.Grade}
 				/>
-			</div>
-			<div>
-				Description:
-				<textarea
+			</InputField>
+			<InputField>
+				<p>Description</p>
+				<StyledTextArea
 					name="description"
-					id=""
-					cols={30}
-					rows={10}
 					value={inputValues.description}
-					onChange={handleChange}></textarea>
-			</div>
-			<div>
-				Start Date:
+					onChange={handleChange}></StyledTextArea>
+			</InputField>
+			<InputField>
+				<p>Start Date</p>
 				<StyledInput
 					type="date"
 					name="startDate"
@@ -137,9 +171,9 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 					onChange={handleChange}
 					value={inputValues.startDate}
 				/>
-			</div>
-			<div>
-				End Date:
+			</InputField>
+			<InputField>
+				<p>End Date</p>
 				<StyledInput
 					type="date"
 					name="endDate"
@@ -147,9 +181,11 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 					onChange={handleChange}
 					value={inputValues.endDate}
 				/>
-			</div>
-			<StyledButton onClick={handleSave}>Save</StyledButton>
-			<StyledButton onClick={handleCancel}>Cancel</StyledButton>
+			</InputField>
+			<ModalFooter>
+				<StyledButton onClick={handleSave}>Save</StyledButton>
+				<StyledButton onClick={handleCancel}>Cancel</StyledButton>
+			</ModalFooter>
 		</StyledModal>
 	);
 };
