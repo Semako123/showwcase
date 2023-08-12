@@ -33,6 +33,12 @@ const EduDetails = ({ params }: EduDetailsPropType) => {
 		setEndDate(new Date(info.endDate));
 	}, []);
 
+	useEffect(() => {
+		if (params.id >= eduInfo.length) {
+			router.push("/dashboard");
+		}
+	});
+
 	if (info) {
 		return (
 			<div>
@@ -70,8 +76,6 @@ const EduDetails = ({ params }: EduDetailsPropType) => {
 			</div>
 		);
 	} else {
-		//Redirects to dashboard if info is empty
-		router.push("/dashboard");
 		return <></>;
 	}
 };
