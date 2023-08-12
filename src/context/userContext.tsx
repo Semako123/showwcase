@@ -48,7 +48,7 @@ export const EduContextProvider = ({
 	]);
 
 	useEffect(() => {
-		const initState: undefined | string =
+		const initState: undefined | string = 
 			typeof window !== "undefined" ? localStorage.getItem("name") || "" : "";
 		updateName(initState);
 	}, []);
@@ -56,6 +56,11 @@ export const EduContextProvider = ({
 	const updateEduInfo = (newEduInfo: EduInfoType): void => {
 		setEduInfo([newEduInfo, ...eduInfo]);
 	};
+
+	const deleteEduInfo = (index: number) => {
+		setEduInfo(eduInfo.slice(0, index).concat(eduInfo.slice(index + 1)))
+	}
+	
 	const updateName = (name: string) => {
 		setName(name);
 	};
@@ -63,7 +68,7 @@ export const EduContextProvider = ({
 		localStorage.setItem("name", name);
 	}, [name]);
 	return (
-		<EduContext.Provider value={{ name, updateName, eduInfo, updateEduInfo }}>
+		<EduContext.Provider value={{ name, updateName, eduInfo, updateEduInfo, deleteEduInfo }}>
 			{children}
 		</EduContext.Provider>
 	);
