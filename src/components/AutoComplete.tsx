@@ -1,5 +1,6 @@
 import { EduInfoType } from "@/@types";
 import { Dispatch, SetStateAction } from "react";
+import AutoCompleteContainer from "./styles/AutoComplete.styles";
 
 const AutoComplete = ({
 	data,
@@ -14,11 +15,11 @@ const AutoComplete = ({
 	}
 	if (data.length > 0) {
 		return (
-			<div>
+			<AutoCompleteContainer>
 				{data.map((info: any, index: number) => (
 					<div key={index} onClick={() => { handleClick(index) }} >{info.name}</div>
 				))}
-			</div>
+			</AutoCompleteContainer>
 		);
 	} else return <></>;
 };
