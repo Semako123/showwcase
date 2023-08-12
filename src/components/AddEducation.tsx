@@ -27,6 +27,8 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 	};
 	const { updateEduInfo } = useEduContext()!;
 	const [inputValues, setInputValues] = useState<EduInfoType>(defaultInput);
+
+	//Fetches data with name and as query key
 	const { isLoading, error, data } = useQuery({
 		queryKey: ["value", inputValues.name],
 		queryFn: () =>
@@ -34,16 +36,24 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 				`http://universities.hipolabs.com/search?name=${inputValues.name}`
 			).then((res) => res.json()),
 	});
+
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		setInputValues({ ...inputValues, [e.target.name]: e.target.value });
 	};
+
 	const handleSave = () => {
 		updateEduInfo(inputValues);
 		setInputValues(defaultInput);
 		setIsOpen(false);
 	};
+
+	const handleCancel = () => {
+		setInputValues(defaultInput);
+		setIsOpen(false);
+	};
+	
 	return (
 		<Modal isOpen={isOpen}>
 			<div>Add new Education to Showcase</div>
@@ -133,6 +143,7 @@ const AddEducation = ({ isOpen, setIsOpen }: Props) => {
 				/>
 			</div>
 			<StyledButton onClick={handleSave}>Save</StyledButton>
+			<StyledButton onClick={handleCancel}>Cancel</StyledButton>
 		</Modal>
 	);
 };
