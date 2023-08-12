@@ -1,5 +1,5 @@
 "use client";
-
+import { Poppins } from "next/font/google";
 import StyledComponentsRegistry from "./registry";
 import GlobalStyle from "@/components/styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
@@ -10,6 +10,12 @@ import Modal from "react-modal";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
+const poppins = Poppins({
+	weight: ["200", "300", "500", "600"],
+	subsets: ["latin"],
+	display: "swap",
+});
+
 export default function RootLayout({
 	children,
 }: {
@@ -18,7 +24,7 @@ export default function RootLayout({
 	const queryClient = new QueryClient();
 	Modal.setAppElement("#app");
 	return (
-		<html lang="en">
+		<html lang="en" className={poppins.className}>
 			<head>
 				<title>Education Showcase</title>
 				<meta name="description" content="Showwcase react based test" />
